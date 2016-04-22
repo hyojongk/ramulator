@@ -33,7 +33,7 @@ public:
         spec->channel_width *= gang_number;
     }
 
-    static Memory<T> *populate_memory(const Config& configs, T *spec, int channels, int ranks) {
+    static Memory<T> *populate_memory(const string& identifier, const Config& configs, T *spec, int channels, int ranks) {
         int& default_ranks = spec->org_entry.count[int(T::Level::Rank)];
         int& default_channels = spec->org_entry.count[int(T::Level::Channel)];
 
@@ -44,7 +44,7 @@ public:
         for (int c = 0; c < channels; c++){
             DRAM<T>* channel = new DRAM<T>(spec, T::Level::Channel);
             channel->id = c;
-            channel->regStats("");
+            channel->regStats(identifier);
             ctrls.push_back(new Controller<T>(configs, channel));
         }
         return new Memory<T>(configs, ctrls);
@@ -54,7 +54,7 @@ public:
         assert(channels > 0 && ranks > 0);
     }
 
-    static MemoryBase *create(const Config& configs, int cacheline)
+    static MemoryBase *create(const string& identifier, const Config& configs, int cacheline)
     {
         int channels = stoi(configs["channels"], NULL, 0);
         int ranks = stoi(configs["ranks"], NULL, 0);
@@ -68,14 +68,14 @@ public:
 
         extend_channel_width(spec, cacheline);
 
-        return (MemoryBase *)populate_memory(configs, spec, channels, ranks);
+        return (MemoryBase *)populate_memory(identifier, configs, spec, channels, ranks);
     }
 };
 
 template <>
-MemoryBase *MemoryFactory<WideIO2>::create(const Config& configs, int cacheline);
+MemoryBase *MemoryFactory<WideIO2>::create(const string& identifier, const Config& configs, int cacheline);
 template <>
-MemoryBase *MemoryFactory<SALP>::create(const Config& configs, int cacheline);
+MemoryBase *MemoryFactory<SALP>::create(const string& identifier, const Config& configs, int cacheline);
 
 } /*namespace ramulator*/
 
