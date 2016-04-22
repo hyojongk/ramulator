@@ -126,34 +126,34 @@ private:
 template <typename T>
 void DRAM<T>::regStats(const std::string& identifier) {
     active_cycles
-        .name("active_cycles" + identifier + "_" + to_string(id))
+        .name("active_cycles_" + identifier + "_" + to_string(id))
         .desc("Total active cycles for level " + identifier + "_" + to_string(id))
         .precision(0)
         ;
     refresh_cycles
-        .name("refresh_cycles" + identifier + "_" + to_string(id))
+        .name("refresh_cycles_" + identifier + "_" + to_string(id))
         .desc("(All-bank refresh only, only valid for rank level) The sum of cycles that is under refresh per memory cycle for level " + identifier + "_" + to_string(id))
         .precision(0)
         .flags(Stats::nozero)
         ;
     busy_cycles
-        .name("busy_cycles" + identifier + "_" + to_string(id))
+        .name("busy_cycles_" + identifier + "_" + to_string(id))
         .desc("(All-bank refresh only. busy cycles only include refresh time in rank level) The sum of cycles that the DRAM part is active or under refresh for level " + identifier + "_" + to_string(id))
         .precision(0)
         ;
     active_refresh_overlap_cycles
-        .name("active_refresh_overlap_cycles" + identifier + "_" + to_string(id))
+        .name("active_refresh_overlap_cycles_" + identifier + "_" + to_string(id))
         .desc("(All-bank refresh only, only valid for rank level) The sum of cycles that are both active and under refresh per memory cycle for level " + identifier + "_" + to_string(id))
         .precision(0)
         .flags(Stats::nozero)
         ;
     serving_requests
-        .name("serving_requests" + identifier + "_" + to_string(id))
+        .name("serving_requests_" + identifier + "_" + to_string(id))
         .desc("The sum of read and write requests that are served in this DRAM element per memory cycle for level " + identifier + "_" + to_string(id))
         .precision(0)
         ;
     average_serving_requests
-        .name("average_serving_requests" + identifier + "_" + to_string(id))
+        .name("average_serving_requests_" + identifier + "_" + to_string(id))
         .desc("The average of read and write requests that are served in this DRAM element per memory cycle for level " + identifier + "_" + to_string(id))
         .precision(6)
         ;
